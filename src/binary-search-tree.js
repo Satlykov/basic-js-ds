@@ -16,36 +16,29 @@ module.exports = class BinarySearchTree {
   }
 
   add(data) {
-    const newNode = new Node(data)
-    if (!this.startData) {
-      this.startData = newNode;
-      return;
-    }
+    this.startData = addWithin(this.startData, data);
 
-    let currentNode = this.startData;
-
-    while (currentNode) {
-      if (newNode.data < currentNode.data) {
-        if (!currentNode.left) {
-          currentNode.left = newNode;
-          return;
+    function addWithin(node, data) {
+        if(!node) {
+            return new Node(data);
+        }
+        
+        if (node.data === data) {
+            return node;
         }
 
-        currentNode = currentNode.left;
-      } else {
-        if (!currentNode.right) {
-          currentNode.right = newNode;
-          return;
+        if (data < node.data) {
+            node.left = addWithin(node.left, data)
+        } else {
+            node.right = addWithin(node.right, data)
         }
 
-        currentNode = currentNode.right;
-      }
+        return node;
     }
-  }
+}
 
-  has(/* data */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  has(data) {
+
   }
 
   find(/* data */) {
