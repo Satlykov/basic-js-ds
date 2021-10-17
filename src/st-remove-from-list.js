@@ -1,4 +1,4 @@
-const { NotImplementedError } = require('../extensions/index.js');
+const { NotImplementedError } = require("../extensions/index.js");
 
 /**
  * Given a singly linked list of integers l and an integer k,
@@ -19,67 +19,23 @@ const { NotImplementedError } = require('../extensions/index.js');
  * }
  */
 
-module.exports = function removeKFromList( l, k ) {
+module.exports = function removeKFromList(l, k) {
+    let cur = l;
+    let arrFinal = [];
 
-    function lengthList(list) {
-        let i = 0;
-        let cur = list;
-    
-        while (cur) {
-            i++;
-            if (cur.next === null) {
-                return i;
-            }
-    
-            cur = cur.next;
-        }
+    while (cur) {
+        cur.value != k ? arrFinal.push(cur.value) : console.log("next");
+        cur = cur.next;
+        if (cur == null) return;
     }
-
-    function indexOf(el, list) {
-        let cur = list;
-        let i = 0;
     
-        while (cur) {
-            if (cur.value === el) {
-                return i;
-            }
-    
-            cur = cur.next;
-            i++;
+    return arrFinal.reverse().reduce((acc, cur) => {
+        if (acc) {
+            const node = new ListNode(cur);
+            node.next = acc;
+            return node;
         }
-    
-        return -1;
-    }
 
-    function removeAt(pos, l) {
-        if (pos < 0 || pos >= lengthList(l)) {
-            return;
-        }
-    
-        let cur = l;
-    
-        if (pos === 0) {
-            return l = cur.next;
-        } else if(pos === 1){
-            cur = cur.next.next
-            l.next = cur;
-            return l;
-        } else if(pos === 2){
-            cur = cur.next.next.next
-            l.next.next = cur;
-            return l;
-        } else if(pos === 3){
-            cur = cur.next.next.next.next
-            l.next.next.next = cur;
-            return l;
-        } else if(pos === 4){
-            cur = cur.next.next.next.next.next
-            l.next.next.next.next = cur;
-            return l;
-        }
-    
-        return l;
-    }
-
-    return removeAt(indexOf(k, removeAt(indexOf(k, l), l)), removeAt(indexOf(k, l), l))
-}
+        return new ListNode(cur);
+    }, null);
+};
