@@ -1,5 +1,4 @@
 const { NotImplementedError } = require("../extensions/index.js");
-
 /**
  * Given a singly linked list of integers l and an integer k,
  * remove all elements from list l that have a value equal to k.
@@ -19,17 +18,13 @@ const { NotImplementedError } = require("../extensions/index.js");
  * }
  */
 
-module.exports = function removeKFromList(l, k) {
-    let cur = l;
-    let arrFinal = [];
+const ListNode = function (x) {
+    this.value = x;
+    this.next = null;
+};
 
-    while (cur) {
-        cur.value != k ? arrFinal.push(cur.value) : console.log("next");
-        cur = cur.next;
-        if (cur == null) return;
-    }
-    
-    return arrFinal.reverse().reduce((acc, cur) => {
+function convertArrayToList(arr) {
+    return arr.reverse().reduce((acc, cur) => {
         if (acc) {
             const node = new ListNode(cur);
             node.next = acc;
@@ -38,4 +33,15 @@ module.exports = function removeKFromList(l, k) {
 
         return new ListNode(cur);
     }, null);
+}
+
+module.exports = function removeKFromList(l, k) {
+    let cur = l;
+    let arrFinal = [];
+
+    while (cur) {
+        cur.value != k ? arrFinal.push(cur.value) : console.log("next");
+        cur = cur.next;
+        if (cur == null) return convertArrayToList(arrFinal);
+    }
 };
